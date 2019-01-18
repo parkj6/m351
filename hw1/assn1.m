@@ -18,14 +18,22 @@ B = [1, 5, 10, 25, 50];    % Initial input
 x = -2: 0.01: 2;            % -2 <= x <= 2
 for k = 1 : length(B)
     y = x + exp(-B(k) .* (x .^ 2));
+    yprime = 1 + 2.*(-B(k)) * exp(-B(k) .* (x .^ 2)) .* x;
     plot (x,y);
     
-    if y == 0
-        root = x;
-    end
-    root;
+    xnew = x - eval(y) ./ eval(yprime);
+	iters = [iters; xnew];
+	test = abs(xnew -x) ./ (abs(xnew)+eps);
+	if max(test) < 10*eps, break, end
+	x = xnew;
+%     if y == 0
+%         root = x;
+%     end
+%     root;
     
 end
+
+
 
 %% Changing the Format to long
 format long
