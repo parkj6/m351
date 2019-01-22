@@ -28,28 +28,22 @@ end
 format short;
 x = [-0.64, -0.40, -0.32, -0.22, -0.18];    % These are actually x0
 max_iter = 20;
-iterall = x;
 for k = 1 : length(x)
-    bval = B(k);
-    xval = x(k);
-    f =      'xval + exp(-bval .* (xval .^ 2))';
-    fprime = '1 + 2*(-bval) * exp(-bval .* (xval .^ 2)) .* xval';
-    iters(k) = xval;
-    iter = [iters(k)];
-    
-    for j = 1 : max_iter
-        xnew(k) = x(k) - eval(f) ./ eval(fprime);
-        iter = [iter; xnew(k)];
-        test = abs(xnew(k) -x(k)) ./ (abs(xnew(k))+eps);
+    f =      'x + exp(-B .* (x .^ 2))';
+    fprime = '1 + 2.*(-B) .* exp(-B .* (x .^ 2)) .* x';
+%     iters(k) = xval;
+    iters = x;
+    for j = 1 : max_iter       % 20 by default
+        xnew = x - eval(f) ./ eval(fprime);
+        iters = [iters; xnew];
+        test = abs(xnew -x) ./ (abs(xnew)+eps);
         if max(test) < 10*eps, break, end
-        x(k) = xnew(k);
-        iter;
+        x = xnew;
     end
-    iters(k)
-    iter
+    iters
 end
 
 %% Changing the Format to long
 format long;
-iters;
+iters
 % iterall
