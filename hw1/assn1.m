@@ -2,6 +2,7 @@
 % Math 351 - Numerical Analysis
 % HW 1
 
+
 %% Initial Plot
 x = -2: 0.02: 2;
 y = -2: 0.02: 2;
@@ -12,29 +13,43 @@ xlabel('x')
 ylabel('y')
 hold on 
 
-%% Part 1
-B = [1, 5, 10, 25, 50];    % Initial input
 
-x = -2: 0.01: 2;            % -2 <= x <= 2
+%% Part a
+B = [1, 5, 10, 25, 50];   % Initial input
+x = -2: 0.01: 2;          % Used for making pretty graphs
+
 for k = 1 : length(B)
-    y = x + exp(-B(k) .* (x .^ 2));
-    yprime = 1 + 2.*(-B(k)) * exp(-B(k) .* (x .^ 2)) .* x;
+    bval = B(k);
+    y = x + exp(-bval .* (x .^ 2));
     plot (x,y);
-    
-    xnew = x - eval(y) ./ eval(yprime);
-	iters = [iters; xnew];
-	test = abs(xnew -x) ./ (abs(xnew)+eps);
-	if max(test) < 10*eps, break, end
-	x = xnew;
-%     if y == 0
-%         root = x;
-%     end
-%     root;
-    
 end
 
-
+%% Part b
+format short;
+x = [-0.64, -0.40, -0.32, -0.22, -0.18];    % These are actually x0
+max_iter = 20;
+iterall = x;
+for k = 1 : length(x)
+    bval = B(k);
+    xval = x(k);
+    f =      'xval + exp(-bval .* (xval .^ 2))';
+    fprime = '1 + 2*(-bval) * exp(-bval .* (xval .^ 2)) .* xval';
+    iters(k) = xval;
+    iter = [iters(k)];
+    
+    for j = 1 : max_iter
+        xnew(k) = x(k) - eval(f) ./ eval(fprime);
+        iter = [iter; xnew(k)];
+        test = abs(xnew(k) -x(k)) ./ (abs(xnew(k))+eps);
+        if max(test) < 10*eps, break, end
+        x(k) = xnew(k);
+        iter;
+    end
+    iters(k)
+    iter
+end
 
 %% Changing the Format to long
-format long
-
+format long;
+iters;
+% iterall

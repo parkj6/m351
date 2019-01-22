@@ -51,7 +51,7 @@ end
 %	Switch to long format, display the final answer,
 % 	and then turn off the long format.
 format long
-iters;
+iters
 format
 
 
