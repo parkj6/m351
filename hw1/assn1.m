@@ -39,9 +39,22 @@ for j = 1 : max_iter                     % Max 20 iterations
 end
 
 format long;                             % Changing the format to long
-iters;                                   % Display iterations.
+iters                                    % Display iterations.
 
 %% Part c
+x = [0 0 0 0 0];                         % All x0 = 0;
+max_iter = 20;
+f =      'x + exp(-B .* (x .^ 2))';
+fprime = '1 + 2.*(-B) .* exp(-B .* (x .^ 2)) .* x';
+iters = [0,x];                           % Start at iteration 0
+for j = 1 : max_iter                     % Max 20 iterations
+    xbad = x - eval(f) ./ eval(fprime);
+    iters = [iters; j, xbad];           % Added iteration #
+    test = abs(xbad -x) ./ (abs(xbad)+eps);
+    if max(test) < 10*eps, break, end
+    x = xbad;
+end
+
 for k = 1 : length(B)
     figure                               % Used to make individual charts
     x = -2: 0.01: 2;         
@@ -58,24 +71,14 @@ for k = 1 : length(B)
     
     x = -2: 0.01: 2;
     m = 1 + 2.*(-B(k)) .* exp(-B(k) .* (xgood(k) .^ 2)) .* xgood(k); % slope
-    y = m .* x - m .* xgood(k);           % Graph of the new slope
+    y = m .* x - m .* xgood(k);           % Graph of the new slope (true value)
+    
+    plot (x,y)
+    m = 1 + 2.*(-B(k)) .* exp(-B(k) .* (xbad(k) .^ 2)) .* xbad(k); % slope
+    y = m .* x - m .* xbad(k);           % Graph of the new slope (false value)
     plot (x,y)
     hold off
 end
 
-x = [0 0 0 0 0];                         % All x0 = 0;
-max_iter = 20;
-f =      'x + exp(-B .* (x .^ 2))';
-fprime = '1 + 2.*(-B) .* exp(-B .* (x .^ 2)) .* x';
-iters = [0,x];                           % Start at iteration 0
-for j = 1 : max_iter                     % Max 20 iterations
-    xbad = x - eval(f) ./ eval(fprime);
-    iters = [iters; j, xbad];           % Added iteration #
-    test = abs(xbad -x) ./ (abs(xbad)+eps);
-    if max(test) < 10*eps, break, end
-    x = xbad;
-end
-
-%% Changing the Format to short;
-format short 
+format long                            % Changing the Format to short;
 iters
