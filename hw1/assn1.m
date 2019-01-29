@@ -2,7 +2,6 @@
 % Math 351 - Numerical Analysis
 % HW 1
 
-
 %% Initial Plot
 x = -2: 0.01: 2;
 y = -2: 0.01: 2;
@@ -11,8 +10,7 @@ axis([-2, 2, -2, 2]);
 title("Plot of f(x) = x + e^{-Bx^2}");
 xlabel('x');
 ylabel('y');
-hold on;         % to what you got
-
+hold on;                                 % to what you got
 
 %% Part a
 B = [1, 5, 10, 25, 50];                  % Initial input
