@@ -12,11 +12,11 @@ title("y = x^3 -3x^2 + 3x -1");
 figure
 % n = 3;            % initial values
 % n = 21;
- n = 30;
+n = 30;
 % n = 50;
 % n = 100;
 
 p = poly(1:n);
 r = roots(p)
-plot(real(r), imag(r), 'o')
+plot(real(r), imag(r),'o')
 axis('equal')
