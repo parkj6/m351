@@ -21,7 +21,8 @@
 % polynomial illustrate this ill-conditioning more vividly.
 
 v = poly(1:n);
-vpert = v; vpert(2) = vpert(2) + epsilon;
+vpert = v; 
+vpert(2) = vpert(2) + epsilon;
 r = roots(v);
 rpert = roots(vpert);
 
