@@ -8,7 +8,6 @@ format long
 b = 0.1:0.1:5;                                  % B value
 x = b;                                                  % x0
 
-
 f = 'exp(x)- b';                               % f(x)   = e^x-b
 fprime = 'exp(x)';                          % f'(x) = e^x
 maxiterations = 20;
@@ -28,23 +27,25 @@ iters;
 
 %% 1. part b
 
-x= 0:0.1:4.9;
-b=3;
+x = -10:0.1:4.10;
+b = 3;
 y = exp(x)-b;
 
-figure 
-hold on
-plot (x,y)
-legend
+x0 = [-10,-5,-2,-1,0,1,2,5,10];         % Initial guess values (x0)
+y0 = exp(x0) -b;
 
-m = exp(x);                                           % slope
-yp = m .* x - m .* xnew + y;           % Graph of the new slope 
-plot (x,yp)
-blah = transpose([x;y; yp])
+for k=1:sizeof(x0)
+  figure 
+  hold on
+  plot (x,y)
+  axis([-10, 10, -5, 10]);
 
-
-
-
+  m = exp(x0(k));                                           % slope
+  yp = m .* x - m .* x0(k) + y0(k);           % Graph of the new slope 
+  plot (x,yp)
+  title(sprintf("Plot of f(x) = e^{%d}-b",x0(k)))
+  legend('e^x-3','tangent')
+end
 
 % %% 2. part a 
 % n=2;            % only one with real root.
