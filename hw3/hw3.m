@@ -9,14 +9,14 @@ x = linspace(-1,1);
 %n = 2;
 n = 10;
 
-%f(x) = e^x for [-1,1]
+% f(x) = e^x for [-1,1]
 y = exp(x);
 
 % f(x) = 1 / (1+ 25x^2)
-y2 = 1 ./ (1 + 25 * x.^2);
+%y = 1 ./ (1 + 25 * x.^2);
 
 %Chebyshev Polynomials
-c = chebyshevT(n,x);
+c = chebyshevT(n,y);
 
 % if Vectors x and y each have n+1 components,
 coeffs = polyfit (x,y,n); 
@@ -33,7 +33,7 @@ cplot = polyval (cpoly, x);
 
 % compute areas where f and p meets.
 [xr,yr] = polyxpoly(x,y, x,polyplot);              % x-root
-[cxr,yxr] = polyxpoly(x,c, x,cplot);                  
+[cxr,cyr] = polyxpoly(x,c, x,cplot);                  
 
 % f-p
 fp = abs (y - polyplot);
@@ -44,12 +44,12 @@ fpc = abs (c - cplot);
 % F as solid curve
 % P as dashed curve
 % F==P - Small circle 
-subplot (221); plot (x,y, '-', x, polyplot,'--', xr, yr, 'o');
-legend ('f(x) = e^x', 'p(x)', 'f(x) == p(x)', 'location','north')
-title ('f(x) = e^x, evenly spaced (n=10)')
+subplot (221); plot (x,y, '-', x, polyplot,'--',  xr, yr, 'o');
+legend ('f(x) = 1 /(1+ 25x^2)', 'p(x)', 'f(x) == p(x)', 'location','north')
+title ('f(x) = 1 /(1+ 25x^2), evenly spaced (n=10)')
 
 % Same thing with Chebyshev points
-subplot (222); plot (x,c, '-', x, cplot,'--',cxr,yxr,'o');
+subplot (222); plot (x,c, '-', x, cplot,'--',cxr,cyr,'o');
 legend ('f(x) = T_1_0(x)', 'p(x)', 'f(x) == p(x)', 'location','north')
 title ('Chebyshev Polynomial')
 
