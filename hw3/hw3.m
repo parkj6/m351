@@ -10,10 +10,10 @@ x = linspace(-1,1);
 n = 10;
 
 % f(x) = e^x for [-1,1]
-y = exp(x);
+%y = exp(x);
 
 % f(x) = 1 / (1+ 25x^2)
-%y = 1 ./ (1 + 25 * x.^2);
+y = 1 ./ (1 + 25 * x.^2);
 
 %Chebyshev Polynomials
 c = chebyshevT(n,y);
